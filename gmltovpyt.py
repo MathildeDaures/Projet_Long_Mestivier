@@ -27,7 +27,6 @@ for li in res:
 
 
 # Traitement des nodes
-print node[0][1][1][1]    
 rule_regex = re.compile("^R+[0-9]")
 rules = []
 species = []
@@ -37,29 +36,28 @@ for li in node:
     else:
         species.append(li)     
     
-print rules[0]
-   
-    
-#rules = box (pos=(15,3148,1), length=1, height=30, width=30, color=color.blue)
-#ball = sphere (pos=(0,4,0), radius=1, color=color.red)
-#ball.velocity = vector(0,-1,0)
-#dt = 0.01
+#print rules[0]
+#print rules[0][1][2][1][0][1]
 
-while 1:
-    rules = box (pos=(15,3148,1), length=300, height=300, width=300, color=color.blue)
-#    rate (20)
-#    ball.pos = ball.pos + ball.velocity*dt
-#    if ball.y < ball.radius:
-#        ball.velocity.y = abs(ball.velocity.y)
-#    else:
-#        ball.velocity.y = ball.velocity.y - 9.8*dt    
-    
-    
-    
-    
-    
-    
-    
+# Affichage des nodes 
+for li in rules:
+    rule = box(pos=(li[1][2][1][0][1],li[1][2][1][1][1]), length=30, height=30, width=30, color=color.blue)
+   
+for li in species:
+    rule = sphere(pos=(li[1][2][1][0][1],li[1][2][1][1][1]), radius=15, color=color.green) 
+
+# Traitement des edges
+arrows_tmp = []
+for li in edge:
+    if len(li[1]) > 3:
+        arrows_tmp.append(li) 
+arrows = []
+for li in arrows_tmp:
+    if len(li[1][3][1]) > 3:
+        arrows.append(li)    
+
+for li in arrows:   
+    pointer = arrow(pos=(li[1][3][1][0][1],li[1][3][1][1][1]), axis=(li[1][3][1][2][1],li[1][3][1][3][1]), shaftwidth=1)
     
     
     
