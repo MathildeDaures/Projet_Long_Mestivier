@@ -40,24 +40,39 @@ for li in node:
 #print rules[0][1][2][1][0][1]
 
 # Affichage des nodes 
+node_id = {}
+
 for li in rules:
+    coord = {}
     rule = box(pos=(li[1][2][1][0][1],li[1][2][1][1][1]), length=30, height=30, width=30, color=color.blue)
-   
+    coord['x'] = li[1][2][1][0][1]
+    coord['y'] = li[1][2][1][1][1]
+    node_id[li[1][0][1]] = coord
+ 
 for li in species:
+    coord = {}
     rule = sphere(pos=(li[1][2][1][0][1],li[1][2][1][1][1]), radius=15, color=color.green) 
+    coord['x'] = li[1][2][1][0][1]
+    coord['y'] = li[1][2][1][1][1]
+    node_id[li[1][0][1]] = coord
+
+#print node_id
 
 # Traitement des edges
-arrows_tmp = []
-for li in edge:
-    if len(li[1]) > 3:
-        arrows_tmp.append(li) 
-arrows = []
-for li in arrows_tmp:
-    if len(li[1][3][1]) > 3:
-        arrows.append(li)    
 
-for li in arrows:   
-    pointer = arrow(pos=(li[1][3][1][0][1],li[1][3][1][1][1]), axis=(li[1][3][1][2][1],li[1][3][1][3][1]), shaftwidth=1)
-    
-    
-    
+for li in edge:
+    #print li[1][1][1]    
+    source = li[1][0][1] 
+    target = li[1][1][1]
+    #print node_id[source]['x']
+    x_source = node_id[source]['x']
+    y_source = node_id[source]['y']
+    x_target = node_id[target]['x']
+    y_target = node_id[target]['y']
+    pointer = arrow(pos=(x_source, y_source, 0), axis=(x_target - x_source, y_target - y_source, 0), shaftwidth=10)
+
+
+
+
+#for li in arrows:   
+#    pointer = arrow(pos=(li[1][3][1][0][1],li[1][3][1][1][1]), axis=(li[1][3][1][2][1],li[1][3][1][3][1]), shaftwidth=1)    
