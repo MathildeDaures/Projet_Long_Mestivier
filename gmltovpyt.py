@@ -73,7 +73,7 @@ for li in edge:
     y_source = node_id[source]['y']
     x_target = node_id[target]['x']
     y_target = node_id[target]['y']
-    #pointer = arrow(pos=(x_source, y_source, 0), axis=(x_target - x_source, y_target - y_source, 0), shaftwidth=10)
+    pointer = arrow(pos=(x_source, y_source, 0), axis=(x_target - x_source, y_target - y_source, 0), shaftwidth=5, color = (0.5, 0.5, 0.5))
 
 # Récupération des valeurs de simulation pour les species
 POE = csv.reader(open("./Visu/Simulations/res_mutation_nwin_100_winsize_500000_nsim_500_Ri_96.poe","rb"), delimiter='\t', quotechar='.')
@@ -97,49 +97,6 @@ for row in POE:
     cpt = cpt + 1
 
 #print POE_value
-    
-# Modification par temps de simulation --  POE
-
-#nb_simul = len(POE_value.keys())
-#print nb_simul
-
-#incr = 1
-#tps = time.clock()
-#while incr <= nb_simul-1:
-#    print incr
-#    print tps
-#    for specie in POE_value[incr]:
-#        value = POE_value[incr][specie]
-        #print value  
-#        if specie != 'nOfEvents' and specie != 'time' and specie != 'NONE':
-#            id_tochange = labels[specie]
-#            if float(value) < 10:
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(0, 100, 0))      #Dark green
-#            elif float(value) >= 10 and float(value) < 20:
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(34, 139, 34))    #Forest green              
-#            elif float(value) >= 20 and float(value) < 30:
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(50, 205, 50))    #Lime green
-#            elif float(value) >= 30 and float(value) < 40:
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(173, 255, 47))   #Green Yellow
-#            elif float(value) >= 40 and float(value) < 50:
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(255, 255, 0))    #Yellow            
-#            elif float(value) >= 50 and float(value) < 60:
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(255, 165, 47))   #Orange
-#            elif float(value) >= 60 and float(value) < 70:
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(255, 69, 0))     #Orange Red
-#            elif float(value) >= 70 and float(value) < 80:
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(255, 0, 0))      #Red
-#            elif float(value) >= 80 and float(value) < 90:
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(205, 0, 0))      #Red 3
-#            elif float(value) >= 90:  
-#                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(139, 0, 0))      #Red 4
-        
-#        newtime = time.clock()        
-#        if newtime >= tps + 2:
-#            print "in time!"
-#            incr = incr + 1
-#            tps = newtime      
-
 # Récupération des valeurs de simulation pour les rules
 POR = csv.reader(open("./Visu/Simulations/res_mutation_nwin_100_winsize_500000_nsim_500_Ri_96.por","rb"), delimiter='\t', quotechar='.')
 rules_list = csv.reader(open("./Visu/Modele/model_14_03_2010_listOfRules_modified.csv", "rb"))
@@ -160,18 +117,42 @@ for row in POR:
         column = column + 1
     POR_value[cpt] = POR_ok
     cpt = cpt + 1
+    
+# Modification par temps de simulation 
 
-#print POR_value
-
-# Modification par temps de simulation --  POR
 nb_simul = len(POE_value.keys())
-print nb_simul
+#print nb_simul
 
 incr = 1
 tps = time.clock()
 while incr <= nb_simul-1:
     print incr
     print tps
+    for specie in POE_value[incr]:
+        value = POE_value[incr][specie]
+        #print value  
+        if specie != 'nOfEvents' and specie != 'time' and specie != 'NONE':
+            id_tochange = labels[specie]
+            if float(value) < 10:
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(0, 0.392, 0))      #Dark green
+            elif float(value) >= 10 and float(value) < 20:
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(0.133, 0.545, 0.133))    #Forest green              
+            elif float(value) >= 20 and float(value) < 30:
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(0.196, 0.804, 0.196))    #Lime green
+            elif float(value) >= 30 and float(value) < 40:
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(0.678, 1, 0.184))   #Green Yellow
+            elif float(value) >= 40 and float(value) < 50:
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(1, 1, 0))    #Yellow            
+            elif float(value) >= 50 and float(value) < 60:
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(1, 0.647, 0))   #Orange
+            elif float(value) >= 60 and float(value) < 70:
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(1, 0.271, 0))     #Orange Red
+            elif float(value) >= 70 and float(value) < 80:
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(1, 0, 0))      #Red
+            elif float(value) >= 80 and float(value) < 90:
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(0.804, 0, 0))      #Red 3
+            elif float(value) >= 90:  
+                rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=(0.545, 0, 0))      #Red4 
     for rule in POR_value[incr]:
         value = POR_value[incr][rule]
         #print value  
@@ -197,15 +178,12 @@ while incr <= nb_simul-1:
                 rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=color.blue, opacity=0.9)   
             else:  
                 rule = sphere(pos=(node_id[id_tochange]['x'], node_id[id_tochange]['y']), radius=15, color=color.blue, opacity=1)   
-        
-        newtime = time.clock()
-        print newtime        
+               
+        newtime = time.clock()        
         if newtime >= tps + 2:
             print "in time!"
             incr = incr + 1
             tps = newtime      
-
-
 
 
 
