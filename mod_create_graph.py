@@ -14,13 +14,19 @@ def labels(rules, species):
         Liste des éléments : LABELS_TO_ID = Name -> id
     """
     labels_to_id = {}
-    
+    reverse_labels = {}
+
     for rule in rules:
         labels_to_id[rule[1][1][1]] = rule[1][0][1]
     for specie in species:
         labels_to_id[specie[1][1][1]] = specie[1][0][1]
 
-    return labels_to_id
+    for rule in rules:
+        reverse_labels[rule[1][0][1]] = rule[1][1][1]
+    for specie in species:
+        reverse_labels[specie[1][0][1]] = specie[1][1][1]
+    
+    return labels_to_id, reverse_labels
 
 
 def coordonnes(rules, species):
